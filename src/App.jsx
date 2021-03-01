@@ -1,5 +1,5 @@
-const initialProducts = []; // Currently setting it to empty array. Later on it will be fetched from backend
 const productTableHeadings = ['Product Name', 'Price', 'Category', 'Image'];
+const NO_DATA_AVAILABLE = 'No Data Available';
 
 /**
  * Renders a single Row in the Product table
@@ -9,10 +9,10 @@ function ProductTableRow(props) {
     const { name, price, category, imageUrl } = props.product;
     return (
         <tr>
-            <td>{name || 'NA'}</td>
-            <td>${price || 'NA'}</td>
+            <td>{name || NO_DATA_AVAILABLE}</td>
+            <td>{price ? `${price}` : NO_DATA_AVAILABLE}</td>
             <td>{category}</td>
-            <td><a href={imageUrl} target="_blank">View</a></td>
+            <td>{imageUrl ? <a href={imageUrl} target="_blank">View</a> : NO_DATA_AVAILABLE}</td>
         </tr>
     );
 }
@@ -69,7 +69,7 @@ class ProductAdd extends React.Component {
 
         const product = {
             name: name.value,
-            price: priceWithoutDollar,
+            price: parseFloat(priceWithoutDollar),
             category: category.value,
             imageUrl: imageUrl.value
         }
@@ -123,6 +123,30 @@ class ProductAdd extends React.Component {
 }
 
 /**
+ * Generic function to fetch graphQL queries and mutations
+ * @param query GraphQL query to be sent in the body
+ * @param variables Query variable to be passed with the query. Defaults to {}
+ */
+async function graphQLFetch(query, variables = {}) {
+    try {
+        const response = await fetch('/graphql', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query, variables })
+        });
+        const result = await response.json();
+
+        if (result.errors) {
+            const error = result.errors[0];
+            alert('Error while quering for data - ', error);
+        }
+        return result.data;
+    } catch (e) {
+        alert(`Error in sending data to server: ${e.message}`);
+    }
+}
+
+/**
  * Entry Point of our Application. Renders the whole page from here.
  */
 class ProductList extends React.Component {
@@ -136,13 +160,39 @@ class ProductList extends React.Component {
         this.loadData();
     }
 
-    loadData() {
-        this.setState({ products: initialProducts }); // Currently empty since no backend.
+    async loadData() {
+        const query = `
+            query {
+                productList {
+                    id
+                    name
+                    category
+                    price
+                    imageUrl
+                }
+            }
+        `;
+
+        const data = await graphQLFetch(query);
+
+        if (data) {
+            this.setState({ products: data.productList });
+        }
     }
 
-    addProduct(product) {
-        product.id = this.state.products.length + 1;
-        this.setState({ products: [...this.state.products, product] });
+    async addProduct(product) {
+        const query = `
+            mutation addProduct($product: ProductInputs!) {
+                addProduct(product: $product) {
+                    id
+                }
+            }
+        `;
+
+        const data = await graphQLFetch(query, { product });
+        if (data) {
+            this.loadData();
+        }
     }
 
     render() {
