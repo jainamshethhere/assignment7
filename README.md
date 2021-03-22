@@ -1,15 +1,18 @@
 # Company Inventory Page
 
-This is the Third Assignment of CS648 course. It is a SPA created using React, served using Express and Graphql for API integration. A simple inventory page where one can add some product and view all the products added.
-The initial setup comes from Assignment 2 repo and this repo is a copy of that with new changes for Assignment 3.
+This is the Fourth Assignment of CS648 course. It is a SPA created using React, served using Express, Graphql for API integration and MongoDB as the database. A simple inventory page where one can add some product and view all the products added.
+The initial setup comes from Assignment 3 repo and this repo is a clone of that with new changes for Assignment 4.
 
 ## Initial Step
 
-Run `npm run install` to install all the dependencies.
+Go to Api folder and run `npm run install` to install all the dependencies.
+Go to Ui folder and run `npm run install` to install all the dependencies.
 
 ## Development server
 
-Run `npm run start` for a dev server and Navigate to `http://localhost:3000/`.
+Go to Api folder and run `npm run start` to bring up the Api server
+Go to Ui folder and run `npm run start` to bring up the UI.
+Now Navigate to `http://localhost:8000/` to interact with the application.
 
 ## GraphQL Playground
 
@@ -17,4 +20,12 @@ After starting Development Server using previous step, open `http://localhost:30
 
 ## Compile Watch Mode
 
-Run `npm run watch` to make babel watch for changes in files. Make any changes and refresh the browser, the changes will be reflected. Make sure you have started the server as per the previous step.
+Go to UI folder and run `npm run watch` to make babel watch for changes in files. Make any changes and refresh the browser, the changes will be reflected. Make sure you have started the server as per the previous step.
+
+## MongoDB reset
+
+From Api folder, you can run `mongo "mongodb+srv://cluster.yxyis.mongodb.net/inventoryTracker" --username jainamcsheth scripts/init.mongo.js` and enter password as `jainamcsheth` to reset the database with two products added initially.
+
+## Lint check
+
+To check for lint issues, go to Api and Ui folder and run `npm run lint` to get the linting issues in the respective folders.

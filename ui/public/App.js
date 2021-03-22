@@ -22,7 +22,7 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
@@ -39,7 +39,7 @@ function ProductTableRow(props) {
       price = _props$product.price,
       category = _props$product.category,
       imageUrl = _props$product.imageUrl;
-  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, name || NO_DATA_AVAILABLE), /*#__PURE__*/React.createElement("td", null, price ? "".concat(price) : NO_DATA_AVAILABLE), /*#__PURE__*/React.createElement("td", null, category), /*#__PURE__*/React.createElement("td", null, imageUrl ? /*#__PURE__*/React.createElement("a", {
+  return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, name || NO_DATA_AVAILABLE), /*#__PURE__*/React.createElement("td", null, price ? "$".concat(price) : NO_DATA_AVAILABLE), /*#__PURE__*/React.createElement("td", null, category), /*#__PURE__*/React.createElement("td", null, imageUrl ? /*#__PURE__*/React.createElement("a", {
     href: imageUrl,
     target: "_blank"
   }, "View") : NO_DATA_AVAILABLE));
@@ -52,16 +52,20 @@ function ProductTableRow(props) {
 
 function ProductTable(props) {
   var headings = props.headings,
-      products = props.products;
+      products = props.products,
+      loading = props.loading;
   var productTableRows = products.map(function (product) {
     return /*#__PURE__*/React.createElement(ProductTableRow, {
       key: product.id,
       product: product
     });
   });
+  var initialTableMessage = loading ? 'Loading products...' : 'No Products added yet';
   return /*#__PURE__*/React.createElement("table", {
     className: "table"
-  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, headings.map(function (heading, index) {
+  }, /*#__PURE__*/React.createElement("thead", {
+    className: "text-left"
+  }, /*#__PURE__*/React.createElement("tr", null, headings.map(function (heading, index) {
     // using index as keys as Table Headings will not change dynamically
     return /*#__PURE__*/React.createElement("th", {
       key: index
@@ -70,7 +74,7 @@ function ProductTable(props) {
     className: "text-center"
   }, /*#__PURE__*/React.createElement("td", {
     colSpan: "4"
-  }, "No Products added yet"))));
+  }, initialTableMessage))));
 }
 /**
  * Product Add Form.
@@ -172,7 +176,8 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
         htmlFor: "name"
       }, "Product Name"), /*#__PURE__*/React.createElement("input", {
         type: "text",
-        name: "name"
+        name: "name",
+        required: true
       })), /*#__PURE__*/React.createElement("div", {
         className: "form-element"
       }, /*#__PURE__*/React.createElement("label", {
@@ -218,7 +223,7 @@ function _graphQLFetch() {
             variables = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
             _context3.prev = 1;
             _context3.next = 4;
-            return fetch('/graphql', {
+            return fetch(window.ENV.UI_API_ENDPOINT, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
@@ -271,7 +276,8 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
 
     _this2 = _super2.call(this);
     _this2.state = {
-      products: []
+      products: [],
+      initialLoading: true
     };
     _this2.addProduct = _this2.addProduct.bind(_assertThisInitialized(_this2));
     return _this2;
@@ -300,7 +306,8 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
 
                 if (data) {
                   this.setState({
-                    products: data.productList
+                    products: data.productList,
+                    initialLoading: false
                   });
                 }
 
@@ -361,7 +368,8 @@ var ProductList = /*#__PURE__*/function (_React$Component2) {
         className: "container"
       }, /*#__PURE__*/React.createElement("h2", null, "My Company Inventory"), /*#__PURE__*/React.createElement("div", null, "Showing all available products"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(ProductTable, {
         headings: productTableHeadings,
-        products: this.state.products
+        products: this.state.products,
+        loading: this.state.initialLoading
       }), /*#__PURE__*/React.createElement("div", null, "Add a new Product"), /*#__PURE__*/React.createElement("hr", null), /*#__PURE__*/React.createElement(ProductAdd, {
         addProduct: this.addProduct
       })));
