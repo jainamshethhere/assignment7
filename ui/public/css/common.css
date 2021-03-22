@@ -53,3 +53,10 @@ body {
 .button.button-dark:focus-visible {
   outline: 2px solid black;
 }
+
+/* Buttons Ends */
+
+.label {
+  display: flex;
+  flex-direction: column;
+}

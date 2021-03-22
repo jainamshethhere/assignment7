@@ -26,22 +26,33 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+/* eslint-disable react/destructuring-assignment */
+
+/* eslint "react/react-in-jsx-scope": "off" */
+
+/* globals React ReactDOM */
+
+/* eslint "react/jsx-no-undef": "off" */
+
+/* eslint "no-alert": "off" */
 var productTableHeadings = ['Product Name', 'Price', 'Category', 'Image'];
 var NO_DATA_AVAILABLE = 'No Data Available';
 /**
  * Renders a single Row in the Product table
- * @param props Expects props as a 'product' object which contains name, price, category and imageUrl.
+ * @param props Expects props as a 'product' object which contains
+ * name, price, category and imageUrl.
  */
 
-function ProductTableRow(props) {
-  var _props$product = props.product,
-      name = _props$product.name,
-      price = _props$product.price,
-      category = _props$product.category,
-      imageUrl = _props$product.imageUrl;
+function ProductTableRow(_ref) {
+  var product = _ref.product;
+  var name = product.name,
+      price = product.price,
+      category = product.category,
+      imageUrl = product.imageUrl;
   return /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("td", null, name || NO_DATA_AVAILABLE), /*#__PURE__*/React.createElement("td", null, price ? "$".concat(price) : NO_DATA_AVAILABLE), /*#__PURE__*/React.createElement("td", null, category), /*#__PURE__*/React.createElement("td", null, imageUrl ? /*#__PURE__*/React.createElement("a", {
     href: imageUrl,
-    target: "_blank"
+    target: "_blank",
+    rel: "noreferrer"
   }, "View") : NO_DATA_AVAILABLE));
 }
 /**
@@ -66,10 +77,14 @@ function ProductTable(props) {
   }, /*#__PURE__*/React.createElement("thead", {
     className: "text-left"
   }, /*#__PURE__*/React.createElement("tr", null, headings.map(function (heading, index) {
-    // using index as keys as Table Headings will not change dynamically
-    return /*#__PURE__*/React.createElement("th", {
-      key: index
-    }, heading);
+    return (
+      /*#__PURE__*/
+      // using index as keys as Table Headings will not change dynamically
+      // eslint-disable-next-line implicit-arrow-linebreak, react/no-array-index-key
+      React.createElement("th", {
+        key: index
+      }, heading)
+    );
   }))), /*#__PURE__*/React.createElement("tbody", null, products.length > 0 ? productTableRows : /*#__PURE__*/React.createElement("tr", {
     className: "text-center"
   }, /*#__PURE__*/React.createElement("td", {
@@ -148,9 +163,11 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/React.createElement("div", {
         className: "form-element"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "category"
-      }, "Category"), /*#__PURE__*/React.createElement("select", {
-        name: "category"
+        htmlFor: "category",
+        className: "label"
+      }, "Category", /*#__PURE__*/React.createElement("select", {
+        name: "category",
+        className: "form-element-select"
       }, /*#__PURE__*/React.createElement("option", {
         value: "Shirts"
       }, "Shirts"), /*#__PURE__*/React.createElement("option", {
@@ -161,31 +178,37 @@ var ProductAdd = /*#__PURE__*/function (_React$Component) {
         value: "Sweaters"
       }, "Sweaters"), /*#__PURE__*/React.createElement("option", {
         value: "Accessories"
-      }, "Accessories"))), /*#__PURE__*/React.createElement("div", {
+      }, "Accessories")))), /*#__PURE__*/React.createElement("div", {
         className: "form-element"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "price"
-      }, "Price Per Unit"), /*#__PURE__*/React.createElement("input", {
+        htmlFor: "price",
+        className: "label"
+      }, "Price Per Unit", /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "price",
         value: this.state.price,
-        onChange: this.handlePriceChange
-      })), /*#__PURE__*/React.createElement("div", {
+        onChange: this.handlePriceChange,
+        className: "form-element-input"
+      }))), /*#__PURE__*/React.createElement("div", {
         className: "form-element"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "name"
-      }, "Product Name"), /*#__PURE__*/React.createElement("input", {
+        htmlFor: "name",
+        className: "label"
+      }, "Product Name", /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "name",
-        required: true
-      })), /*#__PURE__*/React.createElement("div", {
+        required: true,
+        className: "form-element-input"
+      }))), /*#__PURE__*/React.createElement("div", {
         className: "form-element"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "imageUrl"
-      }, "Image URL"), /*#__PURE__*/React.createElement("input", {
+        htmlFor: "imageUrl",
+        className: "label"
+      }, "Image URL", /*#__PURE__*/React.createElement("input", {
         type: "text",
-        name: "imageUrl"
-      })), /*#__PURE__*/React.createElement("button", {
+        name: "imageUrl",
+        className: "form-element-input"
+      }))), /*#__PURE__*/React.createElement("button", {
         type: "submit",
         className: "button button-dark"
       }, "Add Product"));
@@ -253,8 +276,9 @@ function _graphQLFetch() {
             _context3.prev = 12;
             _context3.t0 = _context3["catch"](1);
             alert("Error in sending data to server: ".concat(_context3.t0.message));
+            return _context3.abrupt("return", null);
 
-          case 15:
+          case 16:
           case "end":
             return _context3.stop();
         }

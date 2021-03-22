@@ -32,7 +32,9 @@ function ProductTableRow({ product }) {
  */
 function ProductTable(props) {
   const { headings, products, loading } = props;
-  const productTableRows = products.map(product => <ProductTableRow key={product.id} product={product} />);
+  const productTableRows = products.map(
+    product => <ProductTableRow key={product.id} product={product} />,
+  );
   const initialTableMessage = loading ? 'Loading products...' : 'No Products added yet';
 
   return (
@@ -41,7 +43,7 @@ function ProductTable(props) {
         <tr>
           {headings.map((heading, index) =>
             // using index as keys as Table Headings will not change dynamically
-            // eslint-disable-next-line react/no-array-index-key
+            // eslint-disable-next-line implicit-arrow-linebreak, react/no-array-index-key
             <th key={index}>{heading}</th>)}
         </tr>
       </thead>
@@ -103,29 +105,38 @@ class ProductAdd extends React.Component {
     return (
       <form name="productAdd" onSubmit={this.handleSubmit} className="custom-form">
         <div className="form-element">
-          <label htmlFor="category" id="category">Category</label>
-          <select name="category" id="category">
-            <option value="Shirts">Shirts</option>
-            <option value="Jeans">Jeans</option>
-            <option value="Jackets">Jackets</option>
-            <option value="Sweaters">Sweaters</option>
-            <option value="Accessories">Accessories</option>
-          </select>
+          <label htmlFor="category" className="label">
+            Category
+            <select name="category" className="form-element-select">
+              <option value="Shirts">Shirts</option>
+              <option value="Jeans">Jeans</option>
+              <option value="Jackets">Jackets</option>
+              <option value="Sweaters">Sweaters</option>
+              <option value="Accessories">Accessories</option>
+            </select>
+          </label>
+
         </div>
 
         <div className="form-element">
-          <label htmlFor="price">Price Per Unit</label>
-          <input type="text" name="price" value={this.state.price} onChange={this.handlePriceChange} />
+          <label htmlFor="price" className="label">
+            Price Per Unit
+            <input type="text" name="price" value={this.state.price} onChange={this.handlePriceChange} className="form-element-input" />
+          </label>
         </div>
 
         <div className="form-element">
-          <label htmlFor="name">Product Name</label>
-          <input type="text" name="name" required />
+          <label htmlFor="name" className="label">
+            Product Name
+            <input type="text" name="name" required className="form-element-input" />
+          </label>
         </div>
 
         <div className="form-element">
-          <label htmlFor="imageUrl">Image URL</label>
-          <input type="text" name="imageUrl" />
+          <label htmlFor="imageUrl" className="label">
+            Image URL
+            <input type="text" name="imageUrl" className="form-element-input" />
+          </label>
         </div>
 
         <button type="submit" className="button button-dark">Add Product</button>
@@ -155,6 +166,7 @@ async function graphQLFetch(query, variables = {}) {
     return result.data;
   } catch (e) {
     alert(`Error in sending data to server: ${e.message}`);
+    return null;
   }
 }
 
@@ -214,7 +226,11 @@ class ProductList extends React.Component {
           <h2>My Company Inventory</h2>
           <div>Showing all available products</div>
           <hr />
-          <ProductTable headings={productTableHeadings} products={this.state.products} loading={this.state.initialLoading} />
+          <ProductTable
+            headings={productTableHeadings}
+            products={this.state.products}
+            loading={this.state.initialLoading}
+          />
           <div>Add a new Product</div>
           <hr />
           <ProductAdd addProduct={this.addProduct} />

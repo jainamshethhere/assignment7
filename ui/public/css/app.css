@@ -39,7 +39,7 @@
   padding: 5px;
 }
 
-.button {
+.button, .form-element-select, .form-element-input {
   margin-top: 10px;
 }
 
