@@ -2,7 +2,7 @@
  * Run using the mongo shell. For remote databases, ensure that the
  * connection string is supplied in the command line. For example:
  * localhost:
- *   mongo productTracker scripts/init.mongo.js
+ *   mongo inventoryTracker scripts/init.mongo.js
  * Atlas:
  *   mongo "mongodb+srv://cluster.yxyis.mongodb.net/inventoryTracker" --username jainamcsheth scripts/init.mongo.js
  */

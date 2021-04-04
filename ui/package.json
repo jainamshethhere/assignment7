@@ -1,7 +1,7 @@
 {
-  "name": "assignment4-ui",
+  "name": "assignment5-ui",
   "version": "1.0.0",
-  "description": "MERN Stack Assignment 4 UI",
+  "description": "MERN Stack Assignment 5 UI",
   "main": "index.js",
   "scripts": {
     "start": "npm run compile && nodemon -w uiserver.js -w .env uiserver.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jainamshethhere/assignment4.git"
+    "url": "git+https://github.com/jainamshethhere/assignment5.git"
   },
   "author": "Jainam Sheth",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jainamshethhere/assignment4/issues"
+    "url": "https://github.com/jainamshethhere/assignment5/issues"
   },
-  "homepage": "https://github.com/jainamshethhere/assignment4#readme",
+  "homepage": "https://github.com/jainamshethhere/assignment5#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
