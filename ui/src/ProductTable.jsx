@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const NO_DATA_AVAILABLE = 'No Data Available';
 
@@ -9,7 +10,7 @@ const NO_DATA_AVAILABLE = 'No Data Available';
  */
 function ProductTableRow({ product }) {
   const {
-    name, price, category, imageUrl,
+    name, price, category, imageUrl, id,
   } = product;
   return (
     <tr>
@@ -17,6 +18,7 @@ function ProductTableRow({ product }) {
       <td>{price ? `$${price}` : NO_DATA_AVAILABLE}</td>
       <td>{category}</td>
       <td>{imageUrl ? <a href={imageUrl} target="_blank" rel="noreferrer">View</a> : NO_DATA_AVAILABLE}</td>
+      <td><Link to={`/edit/${id}`}>Edit</Link></td>
     </tr>
   );
 }
@@ -40,12 +42,13 @@ export default function ProductTable(props) {
             // using index as keys as Table Headings will not change dynamically
             // eslint-disable-next-line implicit-arrow-linebreak, react/no-array-index-key
             <th key={index}>{heading}</th>)}
+          <th>Action</th>
         </tr>
       </thead>
 
       <tbody>
         {products.length > 0 ? productTableRows : (
-          <tr className="text-center"><td colSpan="4">{initialTableMessage}</td></tr>
+          <tr className="text-center"><td colSpan="5">{initialTableMessage}</td></tr>
         )}
       </tbody>
     </table>

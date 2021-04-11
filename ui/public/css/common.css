@@ -60,3 +60,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+a.active {
+  background-color: #D8D8F5;
+}
