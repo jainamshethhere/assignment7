@@ -24,12 +24,24 @@ input ProductInputs {
   imageUrl: String
 }
 
+"""Inputs for productUpdate: all are optional. Whichever is specified will
+be set to the given value, undefined fields will remain unmodified."""
+input ProductUpdateInputs {
+  name: String
+  category: Category
+  price: Float
+  imageUrl: String
+}
+
 ##### Top level declarations
 
 type Query {
   productList: [Product!]!
+  product(id: Int!): Product!
 }
 
 type Mutation {
   addProduct(product: ProductInputs!): Product!
+  productUpdate(id: Int!, changes: ProductUpdateInputs!): Product!
+  productDelete(id: Int!): Boolean!
 }

@@ -8,7 +8,7 @@ const NO_DATA_AVAILABLE = 'No Data Available';
  * @param props Expects props as a 'product' object which contains
  * name, price, category and imageUrl.
  */
-function ProductTableRow({ product }) {
+function ProductTableRow({ product, deleteProduct, index }) {
   const {
     name, price, category, imageUrl, id,
   } = product;
@@ -17,8 +17,14 @@ function ProductTableRow({ product }) {
       <td>{name || NO_DATA_AVAILABLE}</td>
       <td>{price ? `$${price}` : NO_DATA_AVAILABLE}</td>
       <td>{category}</td>
-      <td>{imageUrl ? <a href={imageUrl} target="_blank" rel="noreferrer">View</a> : NO_DATA_AVAILABLE}</td>
-      <td><Link to={`/edit/${id}`}>Edit</Link></td>
+      <td>{imageUrl ? <Link to={`/img/${id}`}>View</Link> : NO_DATA_AVAILABLE}</td>
+      <td>
+        <Link to={`/edit/${id}`}>Edit</Link>
+        {' | '}
+        <button type="button" onClick={() => { deleteProduct(index); }}>
+          Delete
+        </button>
+      </td>
     </tr>
   );
 }
@@ -27,10 +33,18 @@ function ProductTableRow({ product }) {
 * Renders the Product Table
 * @param props Expects 'headings' and 'products' array as props
 */
-export default function ProductTable(props) {
-  const { headings, products, loading } = props;
+export default function ProductTable({
+  headings, products, loading, deleteProduct,
+}) {
   const productTableRows = products.map(
-    product => <ProductTableRow key={product.id} product={product} />,
+    (product, index) => (
+      <ProductTableRow
+        key={product.id}
+        product={product}
+        deleteProduct={deleteProduct}
+        index={index}
+      />
+    ),
   );
   const initialTableMessage = loading ? 'Loading products...' : 'No Products added yet';
 

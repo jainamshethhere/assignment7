@@ -20,7 +20,7 @@ After starting Development Server using previous step, open `http://localhost:30
 
 ## Compile Watch Mode
 
-Go to UI folder and run `npm run watch` to make babel watch for changes in files. Make any changes and refresh the browser, the changes will be reflected. Make sure you have started the server as per the previous step.
+Go to UI folder and run `npm run watch` to make babel watch for changes in files. Make any changes and the changes will be reflected without any refresh. Make sure you have started the server as per the previous step.
 
 ## MongoDB reset
 

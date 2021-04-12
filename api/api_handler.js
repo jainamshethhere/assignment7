@@ -7,9 +7,12 @@ const Product = require('./product.js');
 const resolvers = {
   Query: {
     productList: Product.list,
+    product: Product.get,
   },
   Mutation: {
     addProduct: Product.add,
+    productUpdate: Product.update,
+    productDelete: Product.delete,
   },
 };
 
@@ -17,6 +20,10 @@ const resolvers = {
 const server = new ApolloServer({
   typeDefs: fs.readFileSync('schema.graphql', 'utf-8'),
   resolvers,
+  formatError: (error) => {
+    console.log(error);
+    return error;
+  },
 });
 
 function installHandler(app) {
