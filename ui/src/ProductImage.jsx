@@ -51,7 +51,7 @@ export default class ProductImage extends React.Component {
 
     return (
       <div>
-        <h3>{`Viewing Image of Product name - ${name}`}</h3>
+        <h3>{`Viewing Image of Product with name - ${name}`}</h3>
         <img src={imageUrl} alt={`Product id ${id}`} />
       </div>
     );

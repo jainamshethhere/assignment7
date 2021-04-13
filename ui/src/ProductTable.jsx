@@ -50,7 +50,7 @@ export default function ProductTable({
 
   return (
     <table className="table">
-      <thead className="text-left">
+      <thead className="text-left bordered-table">
         <tr>
           {headings.map((heading, index) =>
             // using index as keys as Table Headings will not change dynamically

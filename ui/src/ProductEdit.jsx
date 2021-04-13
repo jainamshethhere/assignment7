@@ -9,6 +9,7 @@ export default class ProductEdit extends React.Component {
     super();
     this.state = {
       product: {},
+      isLoading: true,
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -74,19 +75,24 @@ export default class ProductEdit extends React.Component {
       product.category = product.category != null ? product.category : '';
       product.price = product.price != null ? product.price : '';
       product.imageUrl = product.imageUrl != null ? product.imageUrl : '';
-      this.setState({ product });
+      this.setState({ product, isLoading: false });
     } else {
-      this.setState({ product: {} });
+      this.setState({ product: {}, isLoading: false });
     }
   }
 
   render() {
-    const { product: { id } } = this.state;
+    const { product: { id }, isLoading } = this.state;
     const { match: { params: { id: propsId } } } = this.props;
     if (id == null) {
+      if (isLoading) {
+        return <h3>Loading Product details...</h3>;
+      }
+
       if (propsId != null) {
         return <h3>{`Product with ID ${propsId} not found.`}</h3>;
       }
+
       return null;
     }
 

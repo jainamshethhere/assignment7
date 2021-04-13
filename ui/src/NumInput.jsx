@@ -18,7 +18,7 @@ export default class NumInput extends React.Component {
   }
 
   onChange(e) {
-    if (e.target.value.match(/^\d*$/)) {
+    if (e.target.value.match(/^\d*\.?\d*$/)) {
       this.setState({ value: e.target.value });
     }
   }
@@ -33,11 +33,11 @@ export default class NumInput extends React.Component {
     const { value } = this.state;
     return (
       <input
+        {...this.props}
         type="text"
         value={value}
         onBlur={this.onBlur}
         onChange={this.onChange}
-        {...this.props}
       />
     );
   }

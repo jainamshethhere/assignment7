@@ -30,10 +30,10 @@ export default class TextInput extends React.Component {
     const { value } = this.state;
     const { tag = 'input', ...props } = this.props;
     return React.createElement(tag, {
+      ...props,
       value,
       onBlur: this.onBlur,
       onChange: this.onChange,
-      ...props,
     });
   }
 }
