@@ -138,6 +138,7 @@ export default class ProductEdit extends React.Component {
                   value={price}
                   onChange={this.onChange}
                   key={id}
+                  isDecimal
                 />
               </td>
             </tr>
