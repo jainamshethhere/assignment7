@@ -31,9 +31,10 @@ export default class NumInput extends React.Component {
 
   render() {
     const { value } = this.state;
+    const { isDecimal, ...restProps } = this.props;
     return (
       <input
-        {...this.props}
+        {...restProps}
         type="text"
         value={value}
         onBlur={this.onBlur}

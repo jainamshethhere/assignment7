@@ -1,7 +1,6 @@
 .container {
   margin: 0 auto;
   max-width: 768px;
-  padding: 20px 40px;
 }
 
 .custom-form {
@@ -24,18 +23,6 @@
 .custom-form input,
 .custom-form select {
   width: 200px;
-  padding: 5px;
-}
-
-.table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 10px 0 20px;
-}
-
-.table th,
-.table td {
-  border: 1px solid silver;
   padding: 5px;
 }
 

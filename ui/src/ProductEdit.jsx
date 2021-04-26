@@ -1,4 +1,9 @@
 import React from 'react';
+import {
+  Col, Panel, Form, FormGroup, FormControl, ControlLabel,
+  ButtonToolbar, Button,
+} from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import graphQLFetch from './graphQLFetch.js';
 import NumInput from './NumInput.jsx';
@@ -103,63 +108,83 @@ export default class ProductEdit extends React.Component {
     } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h3>{`Editing product: ${id}`}</h3>
-        <table>
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>
+      <Panel className="panel-dark">
+        <Panel.Heading bsClass="dark">
+          <Panel.Title>{`Editing Product: ${id}`}</Panel.Title>
+        </Panel.Heading>
+
+        <Panel.Body>
+          <Form horizontal onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Name</Col>
+              <Col sm={9}>
                 <TextInput
                   name="name"
                   value={name}
                   onChange={this.onChange}
                   key={id}
+                  className="form-control"
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>Category</td>
-              <td>
-                <select name="category" value={category} onChange={this.onChange}>
+              </Col>
+            </FormGroup>
+
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Category</Col>
+              <Col sm={9}>
+                <FormControl
+                  componentClass="select"
+                  name="category"
+                  value={category}
+                  onChange={this.onChange}
+                >
                   <option value="Shirts">Shirts</option>
                   <option value="Jeans">Jeans</option>
                   <option value="Jackets">Jackets</option>
                   <option value="Sweaters">Sweaters</option>
                   <option value="Accessories">Accessories</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td>Price</td>
-              <td>
+                </FormControl>
+              </Col>
+            </FormGroup>
+
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Price</Col>
+              <Col sm={9}>
                 <NumInput
                   name="price"
                   value={price}
                   onChange={this.onChange}
                   key={id}
-                  isDecimal
+                  className="form-control"
                 />
-              </td>
-            </tr>
-            <tr>
-              <td>Image Url</td>
-              <td>
+              </Col>
+            </FormGroup>
+
+            <FormGroup>
+              <Col componentClass={ControlLabel} sm={3}>Image Url</Col>
+              <Col sm={9}>
                 <TextInput
                   name="imageUrl"
                   value={imageUrl}
                   onChange={this.onChange}
                   key={id}
+                  className="form-control"
                 />
-              </td>
-            </tr>
-            <tr>
-              <td />
-              <td><button type="submit">Submit</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+              </Col>
+            </FormGroup>
+
+            <FormGroup>
+              <Col smOffset={3} sm={6}>
+                <ButtonToolbar>
+                  <Button bsStyle="primary" type="submit">Submit</Button>
+                  <LinkContainer to="/products">
+                    <Button bsStyle="link">Back</Button>
+                  </LinkContainer>
+                </ButtonToolbar>
+              </Col>
+            </FormGroup>
+          </Form>
+        </Panel.Body>
+      </Panel>
     );
   }
 }

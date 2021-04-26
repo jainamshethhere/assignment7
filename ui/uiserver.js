@@ -31,6 +31,12 @@ app.get('/env.js', (_, res) => {
   res.send(`window.ENV = ${JSON.stringify(env)}`);
 });
 
+app.get('*.css', (req, res) => {
+  const filePath = req.url.split('/');
+  const fileName = filePath[filePath.length - 1];
+  res.sendFile(path.resolve(`public/css/${fileName}`));
+});
+
 app.get('*', (_, res) => {
   res.sendFile(path.resolve('public/index.html'));
 });

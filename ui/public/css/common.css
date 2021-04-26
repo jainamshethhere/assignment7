@@ -20,6 +20,10 @@ body {
   text-align: left;
 }
 
+img {
+  max-width: 100%;
+}
+
 /* Buttons */
 
 .button {
@@ -56,20 +60,35 @@ body {
 
 /* Buttons Ends */
 
+/* Dark Bootstrap Panel */
+.panel-dark .panel-heading {
+  background-color: #676565;
+  color: white;
+}
+
+/* Dark Bootstrap Panel Ends */
+
+/* Extra Css */
 .label {
   display: flex;
   flex-direction: column;
+  color: black;
+  text-align: left;
 }
 
 a.active {
   background-color: #D8D8F5;
 }
 
-table.bordered-table th, td {
-  border: 1px solid silver;
-  padding: 4px;
+.panel-title a {
+  display: block;
+  width: 100%;
+  cursor: pointer;
 }
 
-table.bordered-table {
-  border-collapse: collapse;
+.table-dark thead {
+  background-color: #676565;
+  color: white;
 }
+
+/* Extra Css Ends */

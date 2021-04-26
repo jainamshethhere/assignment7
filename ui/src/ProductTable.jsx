@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LinkContainer } from 'react-router-bootstrap';
+import {
+  Button, Glyphicon, Tooltip, OverlayTrigger, Table,
+} from 'react-bootstrap';
 
 const NO_DATA_AVAILABLE = 'No Data Available';
 
@@ -12,18 +16,42 @@ function ProductTableRow({ product, deleteProduct, index }) {
   const {
     name, price, category, imageUrl, id,
   } = product;
+
+  const deleteTooltip = (
+    <Tooltip id="delete-tooltip" placement="top">Delete Product</Tooltip>
+  );
+
+  const editTooltip = (
+    <Tooltip id="close-tooltip" placement="top">Edit Product</Tooltip>
+  );
+
+  function onDelete(e) {
+    e.preventDefault();
+    deleteProduct(index);
+  }
+
   return (
     <tr>
       <td>{name || NO_DATA_AVAILABLE}</td>
       <td>{price ? `$${price}` : NO_DATA_AVAILABLE}</td>
       <td>{category}</td>
-      <td>{imageUrl ? <Link to={`/img/${id}`}>View</Link> : NO_DATA_AVAILABLE}</td>
+      <td>{imageUrl ? (<Link to={`/img/${id}`}>View</Link>) : NO_DATA_AVAILABLE}</td>
       <td>
-        <Link to={`/edit/${id}`}>Edit</Link>
+        <LinkContainer to={`/edit/${id}`}>
+          <OverlayTrigger delayShow={1000} overlay={editTooltip}>
+            <Button bsSize="xsmall">
+              <Glyphicon glyph="edit" />
+            </Button>
+          </OverlayTrigger>
+        </LinkContainer>
+
         {' | '}
-        <button type="button" onClick={() => { deleteProduct(index); }}>
-          Delete
-        </button>
+
+        <OverlayTrigger delayShow={1000} overlay={deleteTooltip}>
+          <Button bsSize="xsmall" onClick={onDelete}>
+            <Glyphicon glyph="trash" />
+          </Button>
+        </OverlayTrigger>
       </td>
     </tr>
   );
@@ -49,7 +77,7 @@ export default function ProductTable({
   const initialTableMessage = loading ? 'Loading products...' : 'No Products added yet';
 
   return (
-    <table className="table">
+    <Table bordered condensed hover responsive className="table-dark">
       <thead className="text-left bordered-table">
         <tr>
           {headings.map((heading, index) =>
@@ -65,6 +93,6 @@ export default function ProductTable({
           <tr className="text-center"><td colSpan="5">{initialTableMessage}</td></tr>
         )}
       </tbody>
-    </table>
+    </Table>
   );
 }

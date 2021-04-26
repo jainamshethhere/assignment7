@@ -1,22 +1,37 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {
+  Navbar, Nav, NavItem, Grid,
+} from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 import Contents from './Contents.jsx';
 
 function NavBar() {
   return (
-    <nav>
-      <NavLink exact to="/">Home</NavLink>
-    </nav>
+    <Navbar bsStyle="inverse" style={{ borderRadius: 0 }}>
+      <Navbar.Header>
+        <Navbar.Brand>My Company Inventory</Navbar.Brand>
+      </Navbar.Header>
+
+      <Nav>
+        <LinkContainer exact to="/">
+          <NavItem>Home</NavItem>
+        </LinkContainer>
+        <LinkContainer to="/products">
+          <NavItem>Product List</NavItem>
+        </LinkContainer>
+      </Nav>
+    </Navbar>
   );
 }
 
-/* Base Page component which shows the static Navbar and the Contents */
 export default function Page() {
   return (
     <div>
       <NavBar />
-      <Contents />
+      <Grid fluid>
+        <Contents />
+      </Grid>
     </div>
   );
 }
