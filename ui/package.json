@@ -1,7 +1,7 @@
 {
-  "name": "assignment5-ui",
+  "name": "assignment7-ui",
   "version": "1.0.0",
-  "description": "MERN Stack Assignment 5 UI",
+  "description": "MERN Stack Assignment 7 UI",
   "main": "index.js",
   "scripts": {
     "#start": "To start UI server. HMR is enabled in dev mode.",
@@ -16,14 +16,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jainamshethhere/assignment5.git"
+    "url": "git+https://github.com/jainamshethhere/assignment7.git"
   },
   "author": "Jainam Sheth",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jainamshethhere/assignment5/issues"
+    "url": "https://github.com/jainamshethhere/assignment7/issues"
   },
-  "homepage": "https://github.com/jainamshethhere/assignment5#readme",
+  "homepage": "https://github.com/jainamshethhere/assignment7#readme",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^3.4.1",
