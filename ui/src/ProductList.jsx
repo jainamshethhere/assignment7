@@ -13,7 +13,7 @@ const productTableHeadings = ['Product Name', 'Price', 'Category', 'Image'];
 export default class ProductList extends React.Component {
   constructor() {
     super();
-    this.state = { products: [], initialLoading: true };
+    this.state = { products: [], initialLoading: true, productCount: 0 };
     this.addProduct = this.addProduct.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
   }
@@ -22,7 +22,20 @@ export default class ProductList extends React.Component {
     this.loadData();
   }
 
+  async getCount() {
+    const query = `query {
+              productCount
+          }`;
+
+    const data = await graphQLFetch(query);
+    if (data) {
+      this.setState({ productCount: data.productCount });
+    }
+  }
+
   async loadData() {
+    this.getCount();
+
     const query = `
             query {
                 productList {
@@ -34,7 +47,6 @@ export default class ProductList extends React.Component {
                 }
             }
         `;
-
     const data = await graphQLFetch(query);
 
     if (data) {
@@ -73,6 +85,7 @@ export default class ProductList extends React.Component {
           history.push({ pathname: '/products', search });
         }
         newList.splice(index, 1);
+        this.loadData();
         return { products: newList };
       });
     } else {
@@ -81,11 +94,11 @@ export default class ProductList extends React.Component {
   }
 
   render() {
-    const { products, initialLoading } = this.state;
+    const { products, initialLoading, productCount } = this.state;
     return (
       <React.Fragment>
         <div className="container">
-          <div>Showing all available products</div>
+          <div>{`Showing ${productCount} available products`}</div>
           <hr />
           <ProductTable
             headings={productTableHeadings}
